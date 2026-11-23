@@ -1,0 +1,151 @@
+1. CREACION DE LOS PROYECTOS EN LARAGON
+
+------------------------------------------------------------------------
+
+# Ir a la carpeta publica de Laragon
+
+cd C:\laragon\www
+
+
+
+# Crear proyectos (ejemplo Hospital)
+
+composer create-project laravel/laravel hospital-backend
+
+composer create-project laravel/laravel hospital-cliente
+
+
+
+# Nota: Despues de crearlos, darle "Reload" en Laragon para que
+
+# genere los Virtual Hosts (.test) automaticamente.
+
+
+
+
+
+2. COMANDOS DEL BACKEND (API REST)
+
+------------------------------------------------------------------------
+
+# Habilitar rutas API (si creas un proyecto desde cero en Laravel 11+)
+
+php artisan install:api
+
+
+
+# Crear modelos con su migracion
+
+php artisan make:model Teacher -m
+
+php artisan make:model Module -m
+
+php artisan make:model Student -m
+
+
+
+# Crear controladores API
+
+php artisan make:controller TeacherController --api
+
+php artisan make:controller ModuleController --api
+
+php artisan make:controller StudentController --api
+
+
+
+# Ejecutar migraciones en MySQL (primero crear la BD en HeidiSQL)
+
+php artisan migrate
+
+
+
+# Reiniciar tablas desde cero si modificaste migraciones
+
+php artisan migrate:fresh
+
+
+
+# Crear enlace simbolico para fotos guardadas en el backend (proyecto Hospital)
+
+# Nota: Solo se usa cuando las imagenes se guardan en storage/app/public
+
+# (no es necesario si las fotos van a Cloudinary)
+
+php artisan storage:link
+
+
+
+# Instalar paquete de Cloudinary (proyecto Practica con Cloudinary)
+
+composer require cloudinary-labs/cloudinary-laravel
+
+
+
+
+
+3. COMANDOS DEL CLIENTE WEB (FRONTEND)
+
+------------------------------------------------------------------------
+
+# Crear controladores del cliente (Proyecto Practica)
+
+php artisan make:controller TeacherClientController
+
+php artisan make:controller ModuleClientController
+
+php artisan make:controller StudentClientController
+
+
+
+# Crear carpeta y vistas de Modulos en PowerShell
+
+mkdir resources\views\modules
+
+New-Item resources\views\modules\index.blade.php, resources\views\modules\create.blade.php, resources\views\modules\edit.blade.php, resources\views\modules\show.blade.php
+
+
+
+# Crear carpeta y vistas de Estudiantes en PowerShell
+
+mkdir resources\views\students
+
+New-Item resources\views\students\index.blade.php, resources\views\students\create.blade.php, resources\views\students\edit.blade.php, resources\views\students\show.blade.php
+
+
+
+
+
+4. DEPURACION, LOGS Y CACHE (MUY UTILES EN EL EXAMEN)
+
+------------------------------------------------------------------------
+
+# Limpiar cache de configuracion despues de editar el archivo .env
+
+# (Obligatorio si editas credenciales o si usas env() en controladores)
+
+php artisan config:clear
+
+
+
+# Ver todas las rutas registradas
+
+php artisan route:list
+
+
+
+# Ver el contenido de un archivo desde PowerShell (ej. rutas API)
+
+Get-Content routes\api.php
+
+
+
+# Ver las ultimas 30 lineas del log de errores de Laravel
+
+Get-Content storage\logs\laravel.log -Tail 30
+
+
+
+# Ver directamente el ultimo error exacto (local.ERROR) con 5 lineas de contexto
+
+Select-String -Path storage\logs\laravel.log -Pattern "local.ERROR" -Context 0,5 | Select-Object -Last 1
