@@ -78,7 +78,7 @@ php artisan storage:link
 
 # Instalar paquete de Cloudinary (proyecto Practica con Cloudinary)
 
-composer require cloudinary-labs/cloudinary-laravel
+composer require cloudinary/cloudinary_php
 
 
 
